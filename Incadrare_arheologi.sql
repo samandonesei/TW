@@ -1,11 +1,15 @@
+drop index index_arheolog;
+/
 create index index_arheolog on artefact (id_arheolog);
-
+/
+drop package distributie_arheologi;
+/
 create or replace package distributie_arheologi is 
   function grad_arheolog(p_id in arheolog.id%type) return varchar2;
   function numar(p_string varchar2) return pls_integer;
   procedure distribuire (p_curs out sys_refcursor);
 end distributie_arheologi;
-
+/
 create or replace package body distributie_arheologi is
  function nr_descoperiri(p_id in arheolog.id%type) return pls_integer is
   v_int pls_integer;
@@ -52,7 +56,7 @@ create or replace package body distributie_arheologi is
         select 'Va rugam contactati un admin,una dintre tabele a fost golita!' from dual;
   end distribuire;
 end distributie_arheologi;
-
+/
 
 --drop package distributie_arheologi;
 
