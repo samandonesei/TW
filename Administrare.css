@@ -1,0 +1,19 @@
+#Administrare{
+    border = 2;
+    position: static;
+    font: italic bold 12px/30px Georgia, serif;
+    margin: auto;
+    position:fixed;
+    left:50%;
+}
+#Custom{
+    border = 2;
+    position: static;
+    font: italic bold 12px/30px Georgia, serif;
+    margin: auto;
+    position:fixed;
+}
+input {
+    
+  display: inline-block;
+}
