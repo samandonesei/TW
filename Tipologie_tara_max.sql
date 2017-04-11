@@ -1,3 +1,6 @@
+
+drop package origine_tipologie;
+/
 create or replace package origine_tipologie is
   function max_tipologie(p_id in tipologie.id%type) return pls_integer;
   procedure tara_per_tipologie(p_cursor out sys_refcursor);
@@ -37,7 +40,7 @@ create or replace package body origine_tipologie is
   end;
 end origine_tipologie;
 
-
+/
 
 
 
