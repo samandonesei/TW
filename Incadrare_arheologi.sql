@@ -1,3 +1,5 @@
+create index index_arheolog on artefact (id_arheolog);
+
 create or replace package distributie_arheologi is 
   function grad_arheolog(p_id in arheolog.id%type) return varchar2;
   function numar(p_string varchar2) return pls_integer;
