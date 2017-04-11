@@ -1,8 +1,14 @@
+drop index detinator;
+drop index locatie;
+drop index muzeu_nume;
+drop index cautare;
 create index detinator on artefact(id_detinator);
 create index locatie on artefact(id_locatie);
 create index muzeu_nume on detinator (tip,id,nume);
 create index cautare on locatie(tara,oras,nume_sit);
 
+drop package best_furnizor;
+/
 create or replace package best_furnizor is
   function max_muzeu(p_id in detinator.id%type) return pls_integer;
   procedure tara_per_muzeu(p_cursor out sys_refcursor);
@@ -16,7 +22,7 @@ create or replace package body best_furnizor is
       join artefact a on a.ID_DETINATOR=m.ID 
       join LOCATIE l on l.ID=a.ID_LOCATIE
       where m.tip='Muzeu' and m.id=p_id
-      group by m.id,l.tara,l_oras);
+      group by m.id,l.tara,l.oras);
       return v_total;
   end;
   procedure tara_per_muzeu(p_cursor out sys_refcursor) is
@@ -33,11 +39,11 @@ create or replace package body best_furnizor is
     elsif v_total_muz=0 then raise no_muzeu;
     else
     open p_cursor for 
-      select m.nume,l.tara,l_oras from detinator m
+      select m.nume,l.tara,l.oras from detinator m
         join artefact a on a.ID_DETINATOR=m.ID 
         join LOCATIE l on l.ID=a.ID_LOCATIE
         where m.tip='Muzeu' 
-        group by m.id,m.nume,l.tara,l_oras
+        group by m.id,m.nume,l.tara,l.oras
         having count(a.id)=max_muzeu(m.id);
       end if;
   exception
@@ -47,7 +53,7 @@ create or replace package body best_furnizor is
       open p_cursor for select 'Nu exista informatii legate de vreun muzeu in momentul actual!' from dual;
   end;
 end best_furnizor;
-
+/
 
 /*
 drop package best_furnizor;
