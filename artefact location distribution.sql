@@ -1,4 +1,4 @@
-CREATE OR REPLACE PROCEDURE afiseaza(loc in varchar2,output out sys_refcursor) AS
+CREATE OR REPLACE PROCEDURE getArtefactsPer(loc in varchar2,output out sys_refcursor) AS
 BEGIN
 
 if (loc like 'oras') then
@@ -33,4 +33,4 @@ WHEN no_data_found THEN
   open output for select 'no data found' from  dual;
 when OTHERS then
   open output for select 'unhadeled exception' from  dual;
-END afiseaza;
+END getArtefactsPer;
