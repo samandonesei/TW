@@ -1,7 +1,7 @@
 <html>
 <body>
 <?php
-    $conn = oci_connect('twproject', 'twproject', 'localhost/XE');
+    $conn = oci_connect('TW', 'TW', 'localhost/XE');
     if (!$conn){
         $e = oci_error();
         trigger_error(htmlentities($e['message'], ENT_QUOTES), E_USER_ERROR);
