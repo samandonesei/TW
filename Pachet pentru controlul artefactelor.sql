@@ -56,6 +56,11 @@ BEGIN
   insert into artefact values(v_id,nume,v_id_arh,v_id_loc,v_id_detinut);
   insert into caracteristici values(v_id,culoare,material,perioada,data_desc,rol ,valoare);
   insert into incadrare values(v_id,v_id_tip);
+     exception
+     when NO_DATA_FOUND then
+       raise_application_error (-20001,'Unul din campurile introduse (locatie,detinator,arheolog,tipologie) nu se afla in baza de date');
+    when OTHERS then
+        raise_application_error (-20002,'Campurile introduse sunt corecte,alta eroare neasteptata a aparut');
 END;
 
 PROCEDURE deleteArtefact(numeInput artefact.nume%type) is 
@@ -65,6 +70,9 @@ select id into v_id from artefact where nume like numeInput and rownum<=1;
 delete from caracteristici where id_artefact = v_id;
 delete from incadrare where id_artefact = v_id;
 delete from artefact where id = v_id;
+     exception
+     when NO_DATA_FOUND then
+       raise_application_error (-20003,'Artefactul nu a fost gasit in baza de date');
 END;
 
 
@@ -159,14 +167,17 @@ UPDATE incadrare
 SET id_tipologie=v_id
 WHERE id_artefact = (select id from artefact where nume like numeInput and rownum <=1) ;
 end if;
+     exception
+     when NO_DATA_FOUND then
+       raise_application_error (-20004,'Artefactul,arheologul,locatia,detinatorul sau tipologia nu au fost gasite in baza de date.');
 END;
 end artefact_administration;
 
 
-begin
-  artefact_administration.addArtefact('Battle axe of Olaf the migthy','Dragos Bradea','Templul lui Samba','gri','fier','Viking Age',sysdate,'Arma','50k', 'Muzeul de Antichitati','Romana');
+--begin
+  --artefact_administration.addArtefact('Battle axe of Olaf the migthy','Dragos Bradea','Templul lui Samba','gri','fier','Viking Age',sysdate,'Arma','50k', 'Muzeul de Antichitati','Romana');
   --artefact_administration.deleteArtefact('Battle axe of Olaf the migthy');
-  --artefact_administration.updateArtefact('Battle axe of Olaf the migthy',NULL,NULL,NULL,NULL,NULL,sysdate-15,NULL,NULL,NULL,NULL);
-end;
+    -- artefact_administration.updateArtefact('Battle axe of Olaf the migthy',NULL,NULL,NULL,NULL,NULL,sysdate-15,NULL,NULL,NULL,NULL);
+--end;
 
 --select * from artefact a join caracteristici c on c.id_artefact=a.id where a.id>20000;

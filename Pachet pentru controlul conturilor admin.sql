@@ -29,13 +29,14 @@ PROCEDURE remove_user(username admin.nume%type,inputPassword admin.password%type
 is
 BEGIN
 delete from admin where nume like username and password like inputPassword;
+     exception
+     when NO_DATA_FOUND then
+       raise_application_error (-20004,'Contul nu u fost gasit in baza de date.');
 END;
 end Administrator;
-DECLARE
-en integer;
-BEGIN
+
+--BEGIN
   --Administrator.register_user('Marcel','Fagarasi','marcel.fagarasi@email.com');
- -- Administrator.remove_user('Marcel','Fagarasi');
+--  Administrator.remove_user('Marcel','Fagarasi');
   --en:=Administrator.Login('Marcel','Fagarasi'); 
-END;
-select * from admin;
+--END;
