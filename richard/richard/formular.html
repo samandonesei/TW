@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en"> 
+<head>
+<meta charset="utf-8"/>
+<title>Guest Book</title>
+<style type="text/css">
+.formlabel {
+font-weight:bold;
+width: 250px;
+margin-bottom: 12px;
+float: left;
+text-align: left;
+clear: left;
+}
+.formfield {
+font-weight:normal;
+margin-bottom: 12px;
+float: left;
+text-align: left;
+}
+
+input, textarea, select {
+border: 1px solid black;
+}
+</style>
+</head>
+<body>
+<h1>Your archeologic journey begins now!</h1>
+<p>Please complete the form bellow:</p>
+<form name="gbForm" method="post" action="URL_to_script">
+<div class="formlabel">Enter your name</div>
+<div class="formfield"><input type="text" name="name"
+size="50" /></div>
+<div class="formlabel">Enter your email address</div>
+<div class="formfield"><input type="text" name="email"
+size="50" /></div>
+<div class="formlabel">Please choose the types of emails you want to receive from us:</div> 
+<div class="formfield">
+<input type="checkbox" name="website_response[]" value="Surveys" />Surveys<br />		
+<input type="checkbox" name="website_response[]" value="Special Events" />Special Events<br />
+<input type="checkbox" name="website_response[]" value="Projects and thesis cooperation" />Projects and thesis cooperation<br />
+<input type="checkbox" name="website_response[]" value="Career Seminars and Workshops" />Career Seminars and Workshops<br /> 
+<input type="checkbox" name="website_response[]" value="Other Serviced" />Other Serviced<br />
+</div>
+
+<div class="formlabel">Please check the typology you're most interested in:</div>
+<div class="formfield">
+<input type="radio" name="lovebest" value="Maya Civilization" />Maya Civilization<br />
+<input type="radio" name="lovebest" value="Renaissance Era" />Renaissance Era<br />
+<input type="radio" name="lovebest" value="Ancient Greece" />Ancient Greece<br />
+<input type="radio" name="lovebest" value="Prehistorig Era" />Prehistorig Era<br />
+<input type="radio" name="lovebest" value="Stone Age" />Stone Age<br />
+</div>
+<div class="formlabel">Select subscription plan:</div>
+<div class="formfield">
+<select size="3" name="sales">
+<option value="Lifetime." selected="selected">Lifetime(Unique offer) - $99.99</option>
+<option value="One year">One year (Save 53%) - $3.99/mo</option>
+<option value="6 months">6 months (Save 31%) - $5.99/mo</option>
+<option value="One month">One month - $8.99/mo</option>
+</select>
+</div>
+
+<div class="formlabel">Select payment method</div>
+<div class="formfield">
+<select name="suggestion">
+<option value="Visa" selected="selected">Visa</option>
+<option value="Mastercard">Mastercard</option>
+<option value="Discover">Discover</option>
+<option value="Paypal">Paypal</option>
+</select>
+</div>
+
+<div class="formlabel">Feel free to type more sugestions below:</div>
+<div class="formfield">
+<textarea name="comments" rows="4" cols="55"></textarea>
+</div>
+
+<div style="float:left; display: inline-block; clear: left;">
+<input type="submit" value="Click Here to Submit" />
+<input type="reset" value="Erase and Start Over" />
+</div>
+</form>
+</body>
+</html>
+
