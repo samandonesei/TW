@@ -1,0 +1,379 @@
+
+html,body {
+    font-family:sans-serif;
+}
+ body {
+		font-size:62.5%;
+        margin: 1;
+        margin-left: 5%;
+        width:90%;
+        background-image:url(sami/fantasy-art-knights-warriors-horses-hd-wallpaper.jpg);
+		background-size:cover;
+		background-attachment: fixed;   
+      }
+h1,h2,h3{font-family:"Comic Sans MS", cursive, sans-serif;}
+header {
+        background: #0066ff;
+        height: 110px;
+      }
+header.banner{
+	background-image: url(sami/banner.jpg);
+	background-size: 100% 100%;
+	}
+#menubar {
+		border-style: solid;
+		border-width: 2px;
+		border-color: black;
+		height: 5vw;
+		--height:50px;
+        display:flex;
+      }
+ .Button{
+		border-style: solid;
+		border-width: 1px;
+		border-color: black;
+		width: 20%;
+		color: white;
+		background-color: #404040;
+		text-align: center;
+		padding: 15px 32px;
+		display: inline-block;
+		font-size: 2vw;
+		--font-size:2em;
+		-webkit-transition-duration: 0.5s ease-in-out;
+		transition-duration: 0.5s ease-in-out;
+	}
+	.Button:hover
+	{
+		background-color: #330000;
+	} 
+	.Button span {
+	cursor: pointer;
+	display: inline-block;
+	position: relative;
+	transition: 0.5s ease-in-out;
+	}
+
+	.Button span:after {
+	content: '\00bb';
+	position: absolute;
+	opacity: 0;
+	top: 0;
+	right: -20px;
+	transition: 0.5s ease-in-out;
+	}
+
+	.Button:hover span {
+	padding-right: 25px;
+	}
+
+	.Button:hover span:after {
+	opacity: 1;
+	right: 0;
+	}
+	#search{
+		padding-left:5%;
+	}
+	#search input[type=text]{
+		font-size:2em;
+		position:relative;
+		width:15%;
+		height:1.2em;
+		transition:width 0.9s ease-in-out;
+	}
+	#search input[type=text]:focus{
+		width:25%;
+	}
+	#search input[type=button]{
+		cursor:pointer;
+		font-size:2em;
+	}
+	.scroller {
+		position:relative;
+		display:inline-block;
+	}
+	.optiuni{
+		position:absolute;
+		display:none;
+		background-color:white;
+		z-index:1;
+	}
+	.optiuni a{
+		text-decoration:none;
+		display:block;
+	}
+	.optiuni a:hover{
+		background-color:grey;
+	}
+	.scroller:hover .optiuni{
+		display:block;
+	}
+	#sortby{
+		font-size:2em;
+		cursor:pointer;
+	}
+  #mijloc{
+	   box-shadow:0 0.8em 1.6em 0 rgba(0,0,0,0.8),0 1.2em 2em 0 rgba(0,0,0,0.8);
+	 -- position:relative;
+	 float:left;
+	  --background-image:url(2.jpg);
+	 -- background-size:cover;
+	 background-color:#000033;
+	 --background-color:rgba(255, 230, 230,1);
+      width:75%;
+      margin-top: 3em;
+	  margin-left:2em;
+	  border-radius:50px;
+	  margin-bottom:2vw;
+  }
+
+  #mijloc h1{
+	  text-align:center;
+	  color:white;
+	 --color:black;
+	  font-size:10em;;
+	  --font-size:
+	  text-shadow:-0.01em -0.01em red,0.02em 0.02em white,0.03em 0.03em white,0.04em 0.04em red;
+	  letter-spacing:0.05em;
+  }
+  #lista{ 
+      list-style-type:none;
+	  padding-top:2%;
+      width:90%;
+      height:80%;
+           -- background:rgba(112,81,246,0.3);
+      padding-left:5%;
+	  --display:inline-block;
+  }
+ .artefact h3{
+      font : bold 2em/1.5;
+	  text-shadow:1px 1px black,2px 2px white;
+	  font-size:2.6em;
+  }
+ .artefact img {
+      --max-width:150px;
+      --max-height:100px;
+      width:35%;
+      height:100%;
+      float:left;
+      margin: 0 15px 0 0;
+      vertical-align:middle;
+	  border-radius:10%;
+  }
+  .artefact p{
+      font-family:  Papyrus, fantasy;
+	  font-size:1.83em;
+      vertical-align:middle;
+      color:black;
+	  padding-right:1vw;
+  }
+  .More{
+	  margin-left:2.4vw;
+	  font-size:1.95em;
+	  cursor:pointer;
+	  text-align:center;
+	  text-decoration:none;
+	  background-color:#000033;
+	  color:white;
+	  border-radius:0.1em;
+	  border:solid;
+	  transition-duration:0.5s ease-in-out;
+  }
+  .More:hover{
+	   background-color:rgb(102, 102, 255);
+		color: white;
+  }
+ .artefact {
+	  border-style:ridge;
+      overflow:auto;
+      --display:inline-block;
+      --box-shadow: 0 8px 16px 0 rgba(0,0,0,0.8), 0 12px 20px 0 rgba(0,0,0,0.8);
+      border-radius:2.5em;
+      --background-color: #ffffb3;
+	  background-color:rgba(179, 179, 255,0.8);
+	  margin-bottom:2vw;
+      opacity:0.9;
+      width:89%;
+      height:20em;
+  }
+  #MoveButtons{
+	  text-align:center;
+	  padding-bottom:2.5vw;
+  }
+  .MoveBut{
+	  width:13%;
+	  height:2em;;
+	  font-size:1.5em;
+	  text-align:center;
+	  text-decoration:none;
+	  display:inline-block;
+	  color:white;
+	  background-color:rgba(179, 179, 255,0.8);
+	  border-radius:0.5em;
+	  cursor:pointer;
+	  box-shadow:0 0.3em grey;
+  }
+  .MoveBut:hover{ 
+	  background-color:rgb(102, 102, 255);
+  }
+  .MoveBut:active{
+	  background-color:rgb(0, 0, 179);
+	  box-shadow:0 0.1em #47476b;
+	  transform:translateY(0.2em);
+  }
+  .Indexes{
+	  width:3%;
+
+  }
+  
+  
+  
+  
+ #dreapta{
+	 margin-top:3em;
+	 width:19%;
+	 float:right;
+	 box-shadow:0 0.8em 1.6em 0 rgba(0,0,0,0.8),0 1.2em 2em 0 rgba(0,0,0,0.8);
+	 padding:1em;
+	 border-radius:2em;
+	 background:#660000;
+ }
+ #dreapta h2{
+	 --text-decoration:underline;
+	 background:black;
+	 text-align:center;
+	 color:white;
+	 font-size:2.5vw;
+	 border-radius:0.2em;
+ }
+ .discoveries{
+	 text-decoration:none;
+	 color:white;
+	 display:block;
+	 font-size:1.7vw;
+ }
+ .functii{
+	 text-decoration:none;
+	 color:white;
+	 display:block;
+	 font-size:1.7vw;
+ }
+ .functii:hover,.discoveries:hover{
+	 text-decoration:underline;
+ }
+ @media(max-width:1500px){
+	 #search input[type=text],#sortby,#search input[type=button]{
+		font-size:1.8em;}
+	 .artefact{
+		 height:18em;
+	 }
+
+	 .artefact h3{
+		 font-size:2.4em;
+	 }
+	 .artefact p{
+		 font-size:1.6em;
+	 }
+	 .More{font-size:1.85em;}
+ }
+ @media (max-width:1240px){
+	 #search input[type=text],#sortby,#search input[type=button]{
+		font-size:1.63em;}
+	#mijloc{width:90%;}
+	#dreapta{float:left;margin-bottom:3vw;margin-left:1.4rem;}
+	.artefact{
+		height:17em;
+	}
+	.MoveBut{
+		height:1.3rem;
+	}
+	.More{font-size:1.7em;}
+	
+}
+@media (max-width:980px){
+	#search input[type=text],#sortby,#search input[type=button]{
+		font-size:1.43em;}
+	.MoveBut{
+		height:1.2rem;
+	}
+	.artefact{
+		width:94%;
+		height:15em;
+	}
+		.artefact h3{
+		 font-size:1.60em;
+	 }
+	 .artefact p{
+		 font-size:1.30em;
+	 }
+	#mijloc h1{
+		font-size:8em;
+	}
+	.More{font-size:1.6em;}
+}
+@media (max-width:730px){
+	#search input[type=text],#sortby,#search input[type=button]{
+		font-size:1.3em;}
+	#mijloc h1{
+		font-size:6.7em;
+	}
+	.artefact{
+		height:14em;
+	}
+	.artefact h3{
+		 font-size:1.46em;
+	 }
+	 .artefact p{
+		 font-size:1.18em;
+	 }
+	 .More{font-size:1.3em;}
+}
+@media (max-width:600px){
+	#search input[type=text],#sortby,#search input[type=button]{
+		font-size:1.2em;}
+	#dreapta{display:none;}
+	.artefact{
+		width:97%;
+		height:13em;
+	}
+	.artefact h3{
+		 font-size:1.4em;
+	 }
+	 .artefact p{
+		 font-size:1.1em;
+	 }
+	#mijloc h1{
+		font-size:6em;
+	}
+	.More{font-size:1em;}
+}
+ 
+#foot{
+	clear:both;
+	width:100%;
+	height:8vw;
+	border:solid;
+	margin-top:3vw;
+	background:black;
+	border-radius:6px;
+	color:white;
+	text-align:center;
+}
+#down{
+	border-color:white;
+	text-align:center;
+	font-size:3vw;
+	height:60%;
+	margin-top:1vw;
+}
+#down a{
+	text-decoration:none;
+	color:white;
+	border-radius:10px;
+	transition:0.8s ease-in-out;
+}
+#down a:hover{
+	transition:0.8s ease-in-out;
+	background-color:white;
+	color:black;
+}
