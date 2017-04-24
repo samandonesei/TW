@@ -261,6 +261,11 @@ header.banner{
  .functii:hover,.discoveries:hover{
 	 text-decoration:underline;
  }
+ #tipologii{
+	text-decoration:none;
+	color:white;
+	font-size:2.5vw;
+}
  @media(max-width:1500px){
 	 #search input[type=text],#sortby,#search input[type=button]{
 		font-size:1.8em;}
