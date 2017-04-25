@@ -1,0 +1,56 @@
+div.Main{
+    font-size: 250%; 
+}
+div.Arheologi{
+    position: absolute;
+    width: 40%;
+    height: 80%;
+    text-align:center;
+    border: 3px solid;
+    border-color:blue;
+    overflow:auto;
+}
+body {
+        margin: 1;
+		margin-left: 5%;
+		width: 90%;
+		background-image: url("img/fantasy-art-knights-warriors-horses-hd-wallpaper.jpg");
+		background-size:cover;
+		background-attachment: fixed;
+
+      }
+#menubar {
+		border-style: solid;
+		border-width: 3px;
+        background: yellow;
+		border-color: black;
+		height: 50px;
+}
+div.Arheolog{
+    margin:auto;
+    width:90%;
+    height:30%;
+    clear:left;
+    position:relative;
+    border: 3px solid;
+    border-color:black;
+}
+div.Artefacte{
+    position:relative;
+    width:40%;
+    height:100%;
+    text-align:center;
+    border: 3px solid;
+    border-color:blue;
+    overflow:auto;
+    float:right;
+}
+div.Artefact{
+    margin:auto;
+    width:90%;
+    height:30%;
+    clear:left;
+    position:relative;
+    border: 3px solid;
+    border-color:black;
+}

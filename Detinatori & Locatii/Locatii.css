@@ -1,0 +1,93 @@
+a.Continente
+{
+    position:relative;
+    padding: 10px;
+    width: 220px;
+    height:30px;
+}
+
+#myText
+{
+    font: italic bold 12px/30px Georgia, serif;
+}
+#myTable, #myTd, #myTr{
+    border: 2px solid black;
+    font: italic bold 12px/30px Georgia, serif;
+}
+#myButton:hover
+{
+	background-color: #330000;
+	color: Red;
+} 
+#myButton span {
+    cursor: pointer;
+    display: inline-block;
+    position: relative;
+    transition: 0.5s;
+}
+#myButton span:after {
+    content: '\00bb';
+    position: absolute;
+    opacity: 0;
+	top: 0;
+	right: -20px;
+	transition: 0.5s;
+}
+
+#myButton:hover span {
+	padding-right: 25px;
+}
+
+#myButton:hover span:after {
+	opacity: 1;
+	right: 0;
+}
+#Europa{
+	position: absolute;
+    top: 9%;
+    left: 30%;
+    width: 35%;
+    height: auto
+}
+#Africa{
+	position: absolute;
+    top: 30%;
+    left: 25%;
+    width: 45%;
+    height: auto
+}
+#Asia{
+	position: absolute;
+    top: 8%%;
+    right: 12%;
+    width: 55%;
+    height: auto
+}
+#AmericaN{
+	position: absolute;
+    top: 10%;
+    left: 10%;
+    width: 50%;
+    height: auto;
+}
+#AmericaS{
+	position: absolute;
+    top: 40%;
+    left: 15%;
+    width: 40%;
+    height: auto
+}
+#Australia{
+	position: absolute;
+    top: 54%;
+    left: 50%;
+    width: 40%;
+    height: auto
+}
+#Compass{
+    position:absolute;
+    right:55%;
+    top:100%;
+    width:50%;
+    height:auto;
+}

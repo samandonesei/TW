@@ -1,0 +1,211 @@
+ html {
+        font-family: sans-serif;
+      }
+      body {
+        margin: 1;
+		margin-left: 5%;
+		width: 90%;
+		background-image: url("img/fantasy-art-knights-warriors-horses-hd-wallpaper.jpg");
+		background-size:cover;
+		background-attachment: fixed;
+
+      }
+      header {
+        background: #0066ff;
+        height: 130px;
+      }
+      h1 {
+        text-align: center;
+        color: white;
+        line-height: 100px;
+        margin: 0;
+      }
+    article {
+		box-shadow: 0 8px 16px 0 rgba(0,0,0,0.8), 0 12px 20px 0 rgba(0,0,0,0.8);
+        padding: 10px;
+        margin: 7px;
+        background: #660000;
+		width: 20%;
+		border-radius: 12px;
+      }
+	#articol2
+	{
+	background:#737373;
+	width: 60%;
+	}
+	#menubar {
+		border-style: solid;
+		border-width: 3px;
+        background: yellow;
+		border-color: black;
+		height: 50px;
+      }
+	#atricol1 {
+	height: 370px;
+	overflow: hidden;
+
+	}
+
+     #menubar,section {
+        display: flex;
+      }
+	.Button{
+		border-style: solid;
+		border-width: 1px;
+		border-color: black;
+		width: 20%;
+		color: white;
+		background-color: #404040;
+		text-align: center;
+		padding: 15px 32px;
+		display: inline-block;
+		font-size: 20px;
+		-webkit-transition-duration: 0.4s;
+		transition-duration: 0.4s;
+	}
+	.Button:hover
+	{
+		background-color: #330000;
+		color: white;
+	} 
+	.Button span {
+	cursor: pointer;
+	display: inline-block;
+	position: relative;
+	transition: 0.5s;
+	}
+
+	.Button span:after {
+	content: '\00bb';
+	position: absolute;
+	opacity: 0;
+	top: 0;
+	right: -20px;
+	transition: 0.5s;
+	}
+
+	.Button:hover span {
+	padding-right: 25px;
+	}
+
+	.Button:hover span:after {
+	opacity: 1;
+	right: 0;
+	}
+
+	header.banner{
+	background-image: url("img/warriors-wallpaper-25 - Copy.jpg");
+	background-size: 100% 100%;
+	}
+	.AtricleTitle
+	{
+		box-shadow: 0 8px 16px 0 rgba(0,0,0,0.4), 0 12px 20px 0 rgba(0,0,0,0.4);
+		border-radius: 12px;
+		background: black;
+		height: 40px;
+		text-align: center;
+        color: white;
+        line-height: 35px;
+        margin: 0;
+	}
+	#search
+	{
+	    margin: 10px;
+		border-radius: 12px;
+		width: 85%;
+	}
+	.filler
+	{
+		font-family: comic-sans;	
+	}
+	section a:link {
+	color: #e68a00;
+	-webkit-transition-duration: 0.4s;
+	transition-duration: 0.4s;
+	}
+	section a:visited {
+	color: #00b3b3;
+	}
+	section a:hover {
+	color: #339933;
+	}
+	section a:active {
+	color: yellow;
+	}
+
+	#texter{
+	float : left;
+}
+	.post-container {
+		margin: 20px 20px 0 0;  
+		border: 5px solid #333;
+		overflow: auto;
+	}
+	.post-thumb {
+		width:40%;
+		float: left;
+	}
+	.post-thumb img {
+		height :100%;
+		width: 90%;
+	    margin: 10px;
+		border-radius :6px;
+		display: block;
+	}
+	.post-content {
+		margin-left: 210px
+	}	
+	.post-title {
+		font-weight: bold;
+		font-size: 100%
+	}
+	.RMButton{
+		border-style: solid;
+		border-width: 1px;
+		border-color: black;
+		color: white;
+		background-color: #404040;
+		text-align: center;
+		padding: 15px 32px;
+		display: inline-block;
+		font-size: 12px;
+		-webkit-transition-duration: 0.4s;
+		transition-duration: 0.4s;
+		float :right;
+		display: table-cell;
+		vertical-align: bottom;
+	}
+	.RMButton:hover
+	{
+		background-color: #330000;
+		color: white;
+	} 
+	.RMButton span {
+	cursor: pointer;
+	display: inline-block;
+	position: relative;
+	transition: 0.5s;
+	}
+
+	.RMButton span:after {
+	content: '\00bb';
+	position: absolute;
+	opacity: 0;
+	top: 0;
+	right: -20px;
+	transition: 0.5s;
+	}
+
+	.RMButton:hover span {
+	padding-right: 25px;
+	}
+
+	.RMButton:hover span:after {
+	opacity: 1;
+	right: 0;
+	}
+
+	.post-content .RMButton
+	{
+	color: white;
+	}
