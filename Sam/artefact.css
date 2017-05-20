@@ -1,13 +1,13 @@
 html,body {
-    font-family:Verdana,sans-serif;
+    font-family:sans-serif;
 	height:100%;
 }
 
  body {
 		font-size:62.5%;
         --margin-left: 5%;
-		margin:0;
-        width:100%;
+		margin:1;
+        width:98%;
         background-image:url(sami/fantasy-art-knights-warriors-horses-hd-wallpaper.jpg);
 		background-size:cover;
 		background-attachment: fixed;   
@@ -22,11 +22,11 @@ a{text-decoration:none;color:black;}
 a:hover{text-decoration:underline;}
 
 header {
-	width:90%;
+	width:91%;
 	margin-left:5%;
         background: #0066ff;
-        height: 110px;
-      }
+        height: 130px;
+	}
 header.banner{
 	background-image: url(sami/banner.jpg);
 	background-size: 100% 100%;
@@ -35,7 +35,7 @@ header.banner{
 		border-style: solid;
 		border-width: 2px;
 		border-color: black;
-		height: 5vw;
+		height: 3.60vw;
 		--height:50px;
         display:flex;
       }
@@ -49,7 +49,7 @@ header.banner{
 		text-align: center;
 		padding: 15px 32px;
 		display: inline-block;
-		font-size: 2vw;
+		font-size: 1.35vw;
 		--font-size:2em;
 		-webkit-transition-duration: 0.5s ease-in-out;
 		transition-duration: 0.5s ease-in-out;
@@ -83,7 +83,8 @@ header.banner{
 	right: 0;
 	}
 #mainbody{
-	width:100%;
+	--margin-left:5%;
+	width:101%;
 	background-color:black;
 	--background-color:white;
 }	

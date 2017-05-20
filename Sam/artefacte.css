@@ -11,10 +11,10 @@ html,body {
 		background-size:cover;
 		background-attachment: fixed;   
       }
-h1,h2,h3{font-family:"Comic Sans MS", cursive, sans-serif;}
+h1,h2,h3{font-family:sans-serif, cursive;}
 header {
         background: #0066ff;
-        height: 110px;
+        height: 130px;
       }
 header.banner{
 	background-image: url(sami/banner.jpg);
@@ -24,7 +24,7 @@ header.banner{
 		border-style: solid;
 		border-width: 2px;
 		border-color: black;
-		height: 5vw;
+		height: 3.60vw;
 		--height:50px;
         display:flex;
       }
@@ -38,7 +38,7 @@ header.banner{
 		text-align: center;
 		padding: 15px 32px;
 		display: inline-block;
-		font-size: 2vw;
+		font-size: 1.35vw;
 		--font-size:2em;
 		-webkit-transition-duration: 0.5s ease-in-out;
 		transition-duration: 0.5s ease-in-out;
@@ -116,14 +116,14 @@ header.banner{
 	   box-shadow:0 0.8em 1.6em 0 rgba(0,0,0,0.8),0 1.2em 2em 0 rgba(0,0,0,0.8);
 	 -- position:relative;
 	 float:left;
-	  --background-image:url(2.jpg);
-	 -- background-size:cover;
-	 background-color:#000033;
+	 --background-image:url(2.jpg);
+	 --background-size:cover;
+	 background-color:#0b1119;
 	 --background-color:rgba(255, 230, 230,1);
-      width:75%;
-      margin-top: 3em;
-	  margin-left:2em;
-	  border-radius:50px;
+      width:78%;
+      margin-top: 1.5em;
+	  margin-left:0.2em;
+	  border-radius:12px;
 	  margin-bottom:2vw;
   }
 
@@ -131,7 +131,7 @@ header.banner{
 	  text-align:center;
 	  color:white;
 	 --color:black;
-	  font-size:10em;;
+	  font-size:4em;;
 	  --font-size:
 	  text-shadow:-0.01em -0.01em red,0.02em 0.02em white,0.03em 0.03em white,0.04em 0.04em red;
 	  letter-spacing:0.05em;
@@ -173,7 +173,7 @@ header.banner{
 	  cursor:pointer;
 	  text-align:center;
 	  text-decoration:none;
-	  background-color:#000033;
+	  background-color:#172435;
 	  color:white;
 	  border-radius:0.1em;
 	  border:solid;
@@ -189,8 +189,8 @@ header.banner{
       --display:inline-block;
       --box-shadow: 0 8px 16px 0 rgba(0,0,0,0.8), 0 12px 20px 0 rgba(0,0,0,0.8);
       border-radius:2.5em;
-      --background-color: #ffffb3;
-	  background-color:rgba(179, 179, 255,0.8);
+      background-color: #233d66;
+	  --background-color:rgba(179, 179, 255,0.8);
 	  margin-bottom:2vw;
       opacity:0.9;
       width:89%;
@@ -230,12 +230,12 @@ header.banner{
   
   
  #dreapta{
-	 margin-top:3em;
+	 margin-top:1.5em;
 	 width:19%;
 	 float:right;
 	 box-shadow:0 0.8em 1.6em 0 rgba(0,0,0,0.8),0 1.2em 2em 0 rgba(0,0,0,0.8);
 	 padding:1em;
-	 border-radius:2em;
+	 border-radius:12px;
 	 background:#660000;
  }
  #dreapta h2{
@@ -243,20 +243,20 @@ header.banner{
 	 background:black;
 	 text-align:center;
 	 color:white;
-	 font-size:2.5vw;
+	 font-size:1.5vw;
 	 border-radius:0.2em;
  }
  .discoveries{
 	 text-decoration:none;
 	 color:white;
 	 display:block;
-	 font-size:1.7vw;
+	 font-size:1.4vw;
  }
  .functii{
 	 text-decoration:none;
 	 color:white;
 	 display:block;
-	 font-size:1.7vw;
+	 font-size:1.4vw;
  }
  .functii:hover,.discoveries:hover{
 	 text-decoration:underline;
@@ -264,7 +264,7 @@ header.banner{
  #tipologii{
 	text-decoration:none;
 	color:white;
-	font-size:2.5vw;
+	font-size:1.4vw;
 }
  @media(max-width:1500px){
 	 #search input[type=text],#sortby,#search input[type=button]{
@@ -312,7 +312,7 @@ header.banner{
 		 font-size:1.30em;
 	 }
 	#mijloc h1{
-		font-size:8em;
+		font-size:3em;
 	}
 	.More{font-size:1.6em;}
 }
@@ -320,7 +320,7 @@ header.banner{
 	#search input[type=text],#sortby,#search input[type=button]{
 		font-size:1.3em;}
 	#mijloc h1{
-		font-size:6.7em;
+		font-size:2.7em;
 	}
 	.artefact{
 		height:14em;
@@ -348,7 +348,7 @@ header.banner{
 		 font-size:1.1em;
 	 }
 	#mijloc h1{
-		font-size:6em;
+		font-size:2em;
 	}
 	.More{font-size:1em;}
 }
