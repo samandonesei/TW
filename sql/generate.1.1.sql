@@ -695,6 +695,16 @@ begin
   end loop;
   close l_cursor;
 end;
+/
+
+create or replace function nr_artefacte (v_continent in varchar2) return varchar2 is
+v_int pls_integer;
+v_chr varchar2(255);
+begin
+  select count(*) into v_int from artefact join locatie on artefact.id_locatie=locatie.id where locatie.continent=v_continent;
+  v_chr:=v_continent||'('||v_int||' artefacte)';
+  return v_chr;
+end;
 
 /*
 Select administrator.login('Leon','Daniel') from dual;
