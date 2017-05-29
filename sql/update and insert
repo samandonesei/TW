@@ -1,0 +1,128 @@
+<form id=update action="update.php">
+<?php
+echo '<p>Selecteaza tabel<br>';
+        echo '<select name="select">';
+        $conn = oci_connect('TW', 'TW', 'localhost/XE');
+        if (!$conn){
+            $e = oci_error();
+            trigger_error(htmlentities($e['message'], ENT_QUOTES), E_USER_ERROR);
+            exit();
+        }
+        
+        $selected='ARTEFACT';
+        $instruction = oci_parse($conn, 'SELECT table_name from user_tables');
+        oci_execute($instruction);
+         while ($row = oci_fetch_array($instruction, OCI_ASSOC+OCI_RETURN_NULLS)) {
+            foreach ($row as $item) {
+                if(isset($_GET['select']) and strcmp($_GET['select'],$item)==0){
+                    $selected=$_GET['select'];
+                    echo '<option value="'. $item .'" selected>' .$item . '</option>';
+                }
+                    
+                else{
+                    echo '<option value="'. $item .'">'.$item.'</option>';
+                }
+                echo $item;
+            }
+        }
+        echo "<br>";
+        echo '<input type="submit" value="Get Table">';
+        echo "<br>";
+        echo '</select>';
+        echo '</p>';
+        $entries = array();
+        $instruction = oci_parse($conn,'SELECT column_name FROM USER_TAB_COLUMNS WHERE table_name = \''. $selected .'\'');
+        oci_execute($instruction);
+        while ($row = oci_fetch_array($instruction, OCI_ASSOC+OCI_RETURN_NULLS)) 
+            foreach ($row as $item) {
+                echo "$item <br><input type=\"text\" name=\"$item\" value=><br>";
+                $entries []=$item;
+            }
+        echo '<input type="submit" value="Update">';
+        $instruction="Update $selected set ";
+        $ok=1;
+        for($column=1;$column<sizeof($entries);$column++){
+            if(isset($_GET[$entries[$column]]) && $_GET[$entries[$column]]!=""){
+                    $aux = $_GET[$entries[$column]];
+                    $instruction .= "$entries[$column] = '$aux'   ,";
+                }
+                else{
+                    echo "<br>Nu s-au adus modificari in baza de date<br>";
+                    $ok=0;
+                    break;
+                }
+        }
+        if ($ok==1){
+            $instruction[strlen($instruction)-1]="\0";
+            $aux=$_GET[$entries[0]];
+            $instruction .= " where $entries[0] like $aux";
+            $instruction = oci_parse($conn, $instruction);
+            
+            oci_execute($instruction);
+       }
+ ?>
+ </form>
+ <form id=insert action="update.php">
+<?php
+echo '<p>Selecteaza tabel<br>';
+        echo '<select name="select">';
+        $conn = oci_connect('TW', 'TW', 'localhost/XE');
+        if (!$conn){
+            $e = oci_error();
+            trigger_error(htmlentities($e['message'], ENT_QUOTES), E_USER_ERROR);
+            exit();
+        }
+        
+        $selected='ARTEFACT';
+        $instruction = oci_parse($conn, 'SELECT table_name from user_tables');
+        oci_execute($instruction);
+         while ($row = oci_fetch_array($instruction, OCI_ASSOC+OCI_RETURN_NULLS)) {
+            foreach ($row as $item) {
+                if(isset($_GET['select']) and strcmp($_GET['select'],$item)==0){
+                    $selected=$_GET['select'];
+                    echo '<option value="'. $item .'" selected>' .$item . '</option>';
+                }
+                    
+                else{
+                    echo '<option value="'. $item .'">'.$item.'</option>';
+                }
+                echo $item;
+            }
+        }
+        echo "<br>";
+        echo '<input type="submit" value="Get Table">';
+        echo "<br>";
+        echo '</select>';
+        echo '</p>';
+        $entries = array();
+        $instruction = oci_parse($conn,'SELECT column_name FROM USER_TAB_COLUMNS WHERE table_name = \''. $selected .'\'');
+        oci_execute($instruction);
+        $nr='a';
+        while ($row = oci_fetch_array($instruction, OCI_ASSOC+OCI_RETURN_NULLS)) 
+            foreach ($row as $item) {
+                echo "$item <br><input type=\"text\" name=\"t$nr\" value=><br>";
+                $entries []=$item;
+                $nr++;
+            }
+        $ok=1;
+        echo '<input type="submit" value="Insert">';
+        $instruction="insert into $selected values ( ";
+        for($i=0,$nr='a';$i<sizeof($entries);$i++,$nr++){
+            if(isset($_GET["t$nr"]) && $_GET["t$nr"]!=""){
+                    $aux = $_GET["t$nr"];
+                    $instruction .= "'$aux' ,";
+            }
+                else{
+                    echo "<br>Nu s-au adus modificari in baza de date<br>";
+                    $ok=0;
+                    break;
+                }
+        }
+        if ($ok==1){
+            
+        $instruction[strlen($instruction)-1]=")";
+        $instruction = oci_parse($conn, $instruction);
+        oci_execute($instruction);
+        }
+?>
+ </form>
