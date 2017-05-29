@@ -1,3 +1,4 @@
+
 <html>
 	
 	<head>
@@ -5,13 +6,19 @@
 		<title> Localizarea sit-urilor pe glob </title>
 		<link rel = "stylesheet" type = "text/css" href = "locatii.css" </link>
 	</head>
-    
+    <a href="Homepage.html"><header class="banner">
+    </header></a>
+    <header id=menubar>
+	<a href="Artefacte.html" class=Button><span> Artefacts </span></a>
+	<a href="arheologi.php" class=Button><span> Archaeologists </span></a>
+	<a href="locatii.php" class=Button><span> Sites </span></a>
+	<a href="Detinatori.php" class=Button><span> Museums </span></a>
+	<a href="administrare.php" class=Button><span> Admin Area </span></a>
+	</header>
 	<body>
         <a class="Continente">
-            <form action="FrontPage.html">
-                <input id="myButton" type=text value="<-Back" />
-            </form>
-            <div id="Europa">
+            <a href="homepage.html" >Back</a>
+	        <div id="Europa">
                 <a href="Continent.php?id=Europa">
                     <img id="Europa" src="img/Europa.png" />
                 </a>  
@@ -24,8 +31,8 @@
             </div>
             
             <div id="AmericaN">
-                <a href="Continent.php?id=AmericaN">
-                    <img id="AmericaN" src="img/AmericaN.png" />
+                <a href="Continent.php?id=America de Nord">
+                    <img id="AmericaN" src="img/America de Nord.png" />
                 </a>
             </div>
             
@@ -36,14 +43,14 @@
             </div>
             
             <div id="Australia">
-                <a href="Continent.php?id=Australia">
-                    <img id="Australia" src="img/Australia.png" />
+                <a href="Continent.php?id=Oceania">
+                    <img id="Australia" src="img/Oceania.png" />
                 </a>
             </div>
             
             <div id="AmericaS">
-                <a href="Continent.php?id=AmericaS">
-                    <img id="AmericaS" src="img/AmericaS.png" />
+                <a href="Continent.php?id=America de Sud">
+                    <img id="AmericaS" src="img/America de Sud.png" />
                 </a>
             <div id="Compass">
                 <a>
@@ -58,30 +65,34 @@
             
             </text>
             
-            <?php
-                $conn = oci_connect('TW', 'TW', 'localhost/XE');
-                if (!$conn){
-                    $e = oci_error();
-                    trigger_error(htmlentities($e['message'], ENT_QUOTES), E_USER_ERROR);
-                    exit();
-                }
-                $instruction = oci_parse($conn, 'Select continent,count(id) from locatie group by continent');
-                oci_execute($instruction);
-                echo "<table id=myTable>";
-                echo "<tr id=myTr>
+            <table id=myTable><tr id=myTr>
                         <td id=myTd>Continent</td>
                         <td id=myTd>Numar Situri</td>
-                     </tr>";
-                while ($row = oci_fetch_array($instruction, OCI_ASSOC+OCI_RETURN_NULLS)) {
-                    echo "<tr id=myTr>\n";
-                    foreach ($row as $item) {
-                        
-                        echo "    <td id=myTd>" . ($item !== null ? htmlentities($item, ENT_QUOTES) : "&nbsp;") . "</td>\n";
-                    }
-                    echo "</tr>\n";
-                }
-                echo "</table>\n";
-            ?>
+                     </tr><tr id=myTr>
+    <td id=myTd>AmericaS</td>
+    <td id=myTd>214</td>
+</tr>
+<tr id=myTr>
+    <td id=myTd>AmericaN</td>
+    <td id=myTd>211</td>
+</tr>
+<tr id=myTr>
+    <td id=myTd>Australia</td>
+    <td id=myTd>89</td>
+</tr>
+<tr id=myTr>
+    <td id=myTd>Africa</td>
+    <td id=myTd>102</td>
+</tr>
+<tr id=myTr>
+    <td id=myTd>Asia</td>
+    <td id=myTd>195</td>
+</tr>
+<tr id=myTr>
+    <td id=myTd>Europa</td>
+    <td id=myTd>189</td>
+</tr>
+</table>
         </a>
         
         
