@@ -106,6 +106,7 @@
             oci_execute($instruction);
             $numar=oci_parse($conn,"select count(*) from ( select /*+ FIRST_ROWS(n) */ a.*, ROWNUM rnum from ( SELECT * FROM ARTEFACT ".$join.$where.$order." ) a where ROWNUM <=".$MAX.") where rnum  > ".$MIN);
             oci_execute($numar);
+            
             $linie=oci_fetch_array($numar);
             if($linie[0]==0)
             {
@@ -117,10 +118,13 @@
                     $imagine="sami/artefact".$row[0].".jpg";
                 else
                     $imagine="sami/artefact.png";
+                $instr=oci_parse($conn,"select data_descoperire,valoare_est from caracteristici where id_artefact=".$row[0]);
+                oci_execute($instr);
+                $caracteristici=oci_fetch_array($instr);
                  echo "<li class="."artefact".">
                 <img src=".$imagine." />
                 <h3>".$row[1]."</h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla eget scelerisque dui, vitae tincidunt eros.</p>
+                <p>Date discovered:".$caracteristici[0].",Est. value:".$caracteristici[1].".</p>
 				<a href=artefact.html?id=".$row[0]." class=More>More Details</a>
             </li>";
                 $contor=$contor+1;
@@ -131,7 +135,7 @@
           </ul>
           <?php
             echo "<div id=MoveButtons>";
-            $conn = oci_connect('PROIECT', 'proiect', 'localhost/XE');
+            $conn = oci_connect('TW', 'TW', 'localhost/XE');
             $number=getQuery($conn,"Select count(*) from artefact".$join.$where.$order);
             $intermediar=$MIN-1;
             $pagini=intval($number/10);
