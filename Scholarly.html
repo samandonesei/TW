@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>REPORT HTML</title>
+  </head>
+  <body prefix="schema: http://schema.org/>
+  <article id="main" typeof="schema:ScholarlyArticle" resource="#">
+    <header>
+      <h1>Artifacty</h1>
+    </header>  
+    <section role="contributorInfo">
+        <dl>
+            <dt>Autori</dt>
+            <dd>
+            <ul>
+                <li property="schema:author" typeof="sa:ContributorRole">
+                    <a property="schema:author" href="https://github.com/samandonesei" typeof="schema:Person">
+                        <span property="schema:givenName">Samuel</span>
+                        <span property="schema:familyName">Andonesei</span>
+                    </a>
+                </li>
+                <li property="schema:contributor" typeof="sa:ContributorRole">
+                    <a property="schema:contributor" href="https://github.com/NicuRoman" typeof="schema:Person">
+                        <span property="schema:givenName">Nicusor</span>
+                        <span property="schema:familyName">Roman</span>
+                    </a>
+                </li>
+                <li property="schema:contributor" typeof="sa:ContributorRole">
+                    <a property="schema:contributor" href="https://github.com/DanielLeonUaic" typeof="schema:Person">
+                        <span property="schema:givenName">Daniel</span>
+                        <span property="schema:familyName">Leon</span>
+                    </a>
+                </li>
+                <li property="schema:contributor" typeof="sa:ContributorRole">
+                    <a property="schema:contributor" href="https://github.com/richardmihailescu" typeof="schema:Person">
+                        <span property="schema:givenName">Richard</span>
+                        <span property="schema:familyName">Mihailescu</span>
+                    </a>
+                </li>
+            </ul>
+            </dd>
+        </dl>
+      </section>
+    <section typeof="sa:Abstract">
+      <h2>Scop</h2>
+      <p>
+        Scopul acestui report este de a prezenta ideea din spatele aplicatiei web,tehnologiile utilizate,procesul de dezvoltare ala acesteia,
+        obiectivele care au fost urmarite si rezultatul final.
+      </p>
+      <h2>Introducere</h2>
+      <p>
+        <b>Artifacty</b>, o aplicatie Web ce realizeaza managementul informatiilor privitoare la colectii de artefacte arheologice, 
+        structurate pe tipuri, roluri, conform localizarii geografice etc. Fiecare artefact are atasate diverse meta-date -- e.g., 
+        arheolog(descoperitor), valoare, data descoperire ,etc. De asemenea, exista diverse relatii intre anumite 
+        artefacte ,artefactele fiind incadrate in diferite tipologii . Se ofera de asemenea posibilitatea de filtrare a datelor si un numar de 
+        statistici privitoare la artefactele stocate in baza de date. Datele procesate pot fi de asemenea
+        importate/exportate  via documente in formatele CSV, JSON si XML.
+      </p>
+      <p>
+        Something  
+      </p>
+      <p>
+        Obiectivele aplicatiei web au fost:
+      </p>
+      <ul>
+        <li>Oferirea unui mediu cat mai "user-friendly" pentru filtrarea datelor.</li>
+        <li>Accesul la informatii detaliate legate de artefacte.</li>
+        <li>Linkarea cat mai eficienta intre componente diferite ale aplicatiei.</li>
+        <li>More info</li>
+      </ul>
+    </section>
+    <section typeof="sa:MaterialsAndMethods">
+      <h2>Procesul de dezvoltare</h2>
+      <p>
+        In urmatoarea parte vom urmari procesul de dezvoltare al aplicatiei web,oferind detalii cat mai amanuntite pentru fiecare pas parcurs.
+      </p>
+      <section id="Beginning">
+        <h3>Stabilirea scopului</h3>
+        <p>
+          S-a pornit cu stabilirea unor obiective,ce trebuie sa ofere produsul final si cum.Scopul aplicatiei fiind unul informational,
+          s-au ales acele informatii care sunt relevante pentru un artefact  (eg. descoperitorul acestuia,locatia la care a fost gasit,o valoare estimata,
+          detinatorul actual + unele caracteristici specifice ).
+        </p>
+      </section>
+      <section id="DB">
+        <h3>Baza de date</h3>
+        <p>
+            Pentru modularizarea aplicatiei,atat la nivel de echipa cat si de structura overall si pentru conformarea la detaliile stabilite 
+            la pasul precedent,s-au ales tabelele necesare pentru dezvoltarea aplicatiei.S-a pornit cu tabelele initiale "Artefact","Arheolog","Locatie"
+            si "Detinator" la care s-au adaugat ulterior "Tipologie","Caracteristici" si "Incadrare".Rolul tabelei "Tipologiei" a fost de a
+            linka artefacte intre ele,de a adauga un punct comun acestora,iar tabela "Incadrare" avea rolul de pastra integritatea bazei de date
+            , de a trata corect o relatie "Many-to-Many" intre doua tabele.
+        </p>
+      </section>
+      <section id="Client">
+        <h3>Clientul-aplicatie</h3>
+        <p>
+            Cu baza de date finalizata,s-a trecut la dezvoltarea partii de client al aplicatiei.
+        </p>
+        <section id="Layout">
+          <h4>Format</h4>
+          <p>
+            S-au impartit task-urile in mod cat mai egal si s-a stabilit formatul fiecarei componente.Aplicatie presupunea accesul la o lista 
+            de artefacte,arheologi,locatii,etc. si la unul dintre acestea concret,astfel s-a ales felul in care urma a fi executata listarea tabelelor
+            ,pozitionarea in pagina a sectiunilor,formatul fiecarei componente a unei liste,etc.Fiecare membru a avut ca task 3 dintre aceste pagini.
+          </p>
+        </section>
+        <section id="dezvoltare">
+           <h4>Dezvoltare</h4>
+           <p>
+             S-a realizat o pagina principala (un homepage) si in functie de template-ul acesta s-au dezvoltat restul paginilor,desigur fiecare
+             membru si-a ales formatul,estetica paginii proprii,cu o conditie,aceea de a respecta un layout general (un menubar comun,banner,background
+             ,un format overall).
+           </p>
+           <p>
+                S-au cautat cat mai multe oportunitati de a linka paginile fiecarui membru intre ele prin mijloace diferite de un 'menubar' comun (acesta
+                existand oricum),astfel s-au creat link-uri intre fiecare artefact si locatia,detinatorul,descoperitorul sau vice-versa.De asemenea 
+                s-au cautat si diversificarea informatiei,astfel in sidebar-uri au aparut informatii,statistici rezultate al unor functii PLSQL.
+           </p>
+           <p>
+            Un exemplu de astfel de functii incluse intr-un pachet:
+           </p>
+           <figure typeof="schema:SoftwareSourceCode">
+                <pre property="schema:programmingLanguage" typeof="schema:Language">
+                <meta property="schema:name" content="plsql">
+                <code>
+  create or replace package distributie_arheologi is 
+    function grad_arheolog(p_id in arheolog.id%type) return varchar2;
+    function numar(p_string varchar2) return pls_integer;
+    procedure distribuire (p_curs out sys_refcursor);
+  end distributie_arheologi;    
+  
+  create or replace package body distributie_arheologi is
+    function nr_descoperiri(p_id in arheolog.id%type) return pls_integer is
+        v_int pls_integer;
+    begin 
+        select count(*) into v_int from arheolog a join artefact l on a.id=l.id_arheolog where a.id=p_id;
+        return v_int;
+    end nr_descoperiri;
+
+    function grad_arheolog(p_id in arheolog.id%type) return varchar2 is
+        v_string varchar2(255);
+        v_int pls_integer;
+    begin
+        v_int:=nr_descoperiri(p_id);
+        if v_int=0 then v_string:='Begginers';
+        elsif v_int =1 or v_int=2 then v_string:='Novices';
+        elsif v_int=3 or v_int=4 then v_string:='Professionals';
+        else v_string:='Experts';
+        end if;
+        return v_string;
+    end grad_arheolog;
+
+    function numar (p_string varchar2) return pls_integer is
+        v_int pls_integer;
+    begin
+        select count(*) into v_int from arheolog where grad_arheolog(id)=p_string;
+        return v_int;
+    end numar;
+
+    procedure distribuire(p_curs out sys_refcursor) is
+        v_total pls_integer;
+        empty_table EXCEPTION;
+        pragma exception_init(empty_table,-20001);
+    begin
+        select count(*) into v_total from arheolog;
+        if v_total=0 then
+            raise empty_table;
+        else
+            open p_curs for 
+            select grad_arheolog(id),numar(grad_arheolog(id)),trunc((numar(grad_arheolog(id))*100)/v_total,2)||'%' from arheolog group by grad_arheolog(id);
+        end if;
+    exception
+        when empty_table then
+        open p_curs for
+        select 'Va rugam contactati un admin,una dintre tabele a fost golita!' from dual;
+    end distribuire;
+    end distributie_arheologi;
+                    </code>
+                </pre>
+            </figure>
+            <p>
+                In codul precedent se urmarea distributia arheologilor in functie de numarul de artefacte descoperite,clasificarea lor.
+            </p>
+        </section>
+      </section>
+      <section id="Back-end">
+        <h3>Back-end</h3>
+        <p>
+            Cu partea de front-end incheiata,s-a trecut la back-end.Obiectivele pe care le-am urmarit la partea de back-end au fost:
+        </p>
+        <ul>
+            <li>Generarea de pagini pentru fiecare inregistrare din baza de date,pastrand formatul finalizat al front-endului.</li>
+            <li>Linkarea fiecarui element cu informatii care ii corespund in baza de date si nu informatie aleatorie.</li>
+            <li>Prevenirea atacurilor SQL.</li>
+            <li>Posibilitatea de export/import a informatiilor din baza de date in/din documente CSV,JSON si XML.</li>
+            <li>Oferirea unei interfete accesibile pentru operatii CRUD.</li>
+        </ul>
+        <p>Generare de pagini html cu php:
+        </p>
+        <figure typeof="schema:SoftwareSourceCode">
+            <pre property="schema:programmingLanguage" typeof="schema:Language">
+                <meta property="schema:name" content="php">
+                <code>
+                while ($row = oci_fetch_array($instruction)) {
+                    if(file_exists("sami/artefact".$row[0].".jpg"))
+                        $imagine="sami/artefact".$row[0].".jpg";
+                    else
+                        $imagine="sami/artefact.png";
+                    $instr=oci_parse($conn,"select data_descoperire,valoare_est from caracteristici where id_artefact=".$row[0]);
+                    oci_execute($instr);
+                    $caracteristici=oci_fetch_array($instr);
+                    echo "&;tli class="."artefact".">
+                          &;timg src=".$imagine." />
+                          &;th3>".$row[1]."&lt/h3>
+                          &ltp>Date discovered:".$caracteristici[0].",Est. value:".$caracteristici[1].".&lt/p>
+                          &lta href=artefact.html?id=".$row[0]." class=More>More Details&lt/a>
+                          &lt/li>";
+                </code>
+            </pre>
+        </figure>
+        <p>Linkare cu informatie relevanta:
+        </p>
+        <figure typeof="schema:SoftwareSourceCode">
+            <pre property="schema:programmingLanguage" typeof="schema:Language">
+                <meta property="schema:name" content="php">
+                <code>
+                if($numarrr[0]==0)
+                    $tip='. Nu se incadreaza niciunei tipologii la momentul actual.';
+                else
+                    $tip='. Se incadreaza urmatoarei tipologii: '.$tipologie[0].".";
+                if(file_exists("sami/artefact".$_GET['id'].".jpg"))
+                    $imagine="sami/artefact".$_GET['id'].".jpg";
+                else
+                    $imagine="sami/artefact.png";
+                echo  "&ltimg src=\"".$imagine."\">
+                       &lth1>".$row[0]."&lt/h1>
+                       &ltp class=\"change\">Artefactul a fost descoperit la data de ".$caracteristici[2]." de catre ".$arheolog[0].".Situl arheologic in care a fost gasit 
+                       se numeste ".$locatie[2].",localizat in ".$locatie[0].".&lt/p>
+                       &ltp class=\"change\">".$row[0]." este datat in perioada  ".$caracteristici[1].",intrebuintarea lui fiind de ".$caracteristici[3].".Materialul din care este confectionat
+                       este ".$caracteristici[0].",fiind estimat la o valoare de \"".$caracteristici[4]."\"".$tip."&lt/p>
+                </code>
+            </pre>
+        </figure>
+        <p>Prevenirea SQL-injection:</p>
+        <figure typeof="schema:SoftwareSourceCode">
+            <pre property="schema:programmingLanguage" typeof="schema:Language">
+                <meta property="schema:name" content="php">
+                <code>
+                if(isset($_GET['search'])){
+                    $where='%'.$_GET['search'].'%';
+                    $input="&ltinput type=\"hidden\" name=\"search\" value=\"".$_GET['search']."\"/>";
+                }
+                else{
+                    $where='%';
+                    $input="";
+                }
+                $sql="select * from ( select /*+ FIRST_ROWS(n) */ a.*, ROWNUM rnum from ( SELECT * FROM ARTEFACT ".$join." 
+                      where nume like :sam ".$order." ) a where ROWNUM <=".$MAX.") where rnum  > ".$MIN;
+                $instruction=oci_parse($conn,$sql);
+                $whr=$where;
+                oci_bind_by_name($instruction, ":sam", $whr);
+                oci_execute($instruction);
+                </code>
+            </pre>
+        </figure>
+        <p>Import CSV,XML,JSON:</p>
+        <figure typeof="schema:SoftwareSourceCode">
+            <pre property="schema:programmingLanguage" typeof="schema:Language">
+                <meta property="schema:name" content="php">
+                <code>
+                function import_table_xml($conn,$table_name){
+                    $string = file_get_contents('ExportedTables\\'.$table_name.'.xml');
+                    $xml = simplexml_load_string($string, "SimpleXMLElement", LIBXML_PARSEHUGE);
+                    $json = json_encode($xml);
+                    $array = json_decode($json,TRUE);
+                    foreach($array as $entry){
+                        $values="(";
+                        foreach($entry as $row){
+                            $values.='\''.$row.'\',';
+                        }
+                        $values[strlen($values)-1]=')';
+                        $instruction='Insert into '.$table_name.' values '.$values;
+                        oci_execute(oci_parse($conn,$instruction));
+                    }    
+                }
+                function import_table_json($conn,$table_name){
+                    $string = file_get_contents('ExportedTables\\'.$table_name.'.json');
+                    $myJson = json_decode($string, true);
+                    foreach($myJson as $entry){
+                        $values="(";
+                        foreach($entry as $row){
+                            $values.='\''.$row.'\',';
+                        }
+                        $values[strlen($values)-1]=')';
+                        $instruction='Insert into '.$table_name.' values '.$values;
+                        oci_execute(oci_parse($conn,$instruction));
+                    }
+                }
+                function import_table_csv($conn,$table_name){
+                    $File = 'ExportedTables\\'.$table_name.'.csv';
+                    $arrResult  = array();
+                    $handle     = fopen($File, "r");
+                    if(empty($handle) === false) {
+                        while(($data = fgetcsv($handle, 1000, ",")) !== FALSE){
+                            $arrResult[] = $data;
+                        }   
+                        fclose($handle);
+                    }
+                    $first = true;
+                    foreach($arrResult as $entry){
+                        if($first==true){
+                            $first=false;
+                            continue;
+                        }
+                        $values="(";
+                        foreach($entry as $row){
+                            $values.='\''.$row.'\',';
+                        }
+                        $values[strlen($values)-1]=')';
+                        $instruction='Insert into '.$table_name.' values '.$values;
+                        oci_execute(oci_parse($conn,$instruction));
+                        }
+                }
+                </code>
+            </pre>
+        </figure>
+        <p>Export CSV,XML,JSON:</p>
+        <figure typeof="schema:SoftwareSourceCode">
+            <pre property="schema:programmingLanguage" typeof="schema:Language">
+                <meta property="schema:name" content="php">
+                <code>
+    function export_table_csv($conn,$table_name){
+        $fp = fopen('ExportedTables\\'.$table_name.'.csv', 'w');
+        $instruction = oci_parse($conn,'SELECT column_name FROM USER_TAB_COLUMNS WHERE table_name = \''. $table_name .'\'');
+        oci_execute($instruction);
+        $names = array();
+        while ($row = oci_fetch_array($instruction, OCI_ASSOC+OCI_RETURN_NULLS)){
+            foreach ($row as $l)
+                $names []=$l;
+        }
+        
+        fputcsv($fp,$names);
+            
+        $instruction = oci_parse($conn,'SELECT * from '. $table_name .'');
+        oci_execute($instruction);
+        while ($row = oci_fetch_array($instruction, OCI_ASSOC+OCI_RETURN_NULLS))
+                fputcsv($fp, $row);
+        fclose($fp);
+    }
+    function export_table_json($conn,$table_name){
+            $instruction = oci_parse($conn,'SELECT * from '. $table_name .'');
+            $fp = fopen('ExportedTables\\'.$table_name.'.json', 'w');
+            oci_execute($instruction);
+            $values=array();
+            while ($row = oci_fetch_array($instruction, OCI_ASSOC+OCI_RETURN_NULLS)){
+                $column= array();
+                foreach($row as $item)
+                    $column[] = $item;
+                $values[]=$column;
+            }
+            fwrite($fp, json_encode($values));
+            fclose($fp);
+        }
+    function export_table_xml($conn,$table_name){
+        $fp = fopen('ExportedTables\\'.$table_name.'.xml', 'w');
+        $instruction = oci_parse($conn,'SELECT column_name FROM USER_TAB_COLUMNS WHERE table_name = \''. $table_name .'\'');
+        oci_execute($instruction);
+        $names = array();
+        while ($row = oci_fetch_array($instruction, OCI_ASSOC+OCI_RETURN_NULLS)){
+            foreach ($row as $l)
+                $names []=$l;
+        }
+        $instruction = oci_parse($conn,'SELECT * from '. $table_name .'');
+        oci_execute($instruction);
+        $values='<?xml version="1.0" encoding="utf-8"?>'."\n";
+        $values .= "<content>\n";
+        $nr='a';
+        while ($row = oci_fetch_array($instruction, OCI_ASSOC+OCI_RETURN_NULLS)){  
+            $column="\t<$nr>\n";
+            $rowNR=0;
+            foreach($row as $item){
+                $column .= "\t\t<$names[$rowNR]>$item</$names[$rowNR]>\n";
+                $rowNR++;
+            }
+            $values.=$column."\t</$nr>\n";
+            $nr++;
+        }
+        $values .= "</content>\n";
+        fwrite($fp, $values);
+        fclose($fp);
+    }
+                </code>
+            </pre>
+        </figure>
+      <h3>Alte detalii</h3>
+      <p>Pentru linkarea unei imagini catre un artefact am procedat astfel:am concatenat la un string standard un id unic din baza de date
+      ,acela fiind in final numele cu care era identificata poza (eg. artefact123.jpg,artefac4563.jpg).Pentru artefactele la care nu s-a gasit o poza
+      s-a lasat una cu valoare de default.Pentru transmiterea id-ului s-au folosit "form"-uri iar inputul a fost transmis/preluat folosit GET.</p>
+      <p>Un link catre un <a href="http://www.photosnack.com/Zefelix/fantasyartknightswarriorshorseshdwallpaper.html">slideshow</a> cu unele din pozele utilizate.</p>
+      </section>
+      <section typeof="sa:Results">
+      <h2>Rezultat overall</h2>
+      <p>Task-ul a fost indeplinit in cea mai mare parte,dar au fost locuri in care se mai puteau face schimbari.</p>
+      <h3>Ce se putea imbunatati</h3>
+      <ul>
+         <li>Adaugarea a mai multor informatii viabile si nu aleatorii,putine artefacte au avut date concrete.</li>
+         <li>O mai buna structurare a bazei de date.</li>
+         <li>O varianta imbunatatita a serviciului cartografic.</li>
+      </ul>
+      </section>
+      <section typeof="sa:Conclusion">
+      <h2>Concluzii</h2>
+      <p>Consider ca in proportie de 95%,aplicatia si-a indeplinit scopul si ca cel mai mare minus care poate fi adus acesteia este lipsa estetismului si a 
+      viziunii noastre ca si design.</p>
+      </section>
+      <section typeof="sa:ReferenceList">
+      <h2>Referinte</h2>
+      <ul>
+        <li><a href="https://profs.info.uaic.ro/~busaco/teach/courses/web/index.html">TW UAIC</a></li>
+        <li><a href="https://www.w3schools.com">W3S</a></li>
+        <li><a href="https://stackoverflow.com">Stack Overflow</a></li>
+        <li><a href="https://www.photosnack.com">Photo Snack</a></li>
+        <li><a href="https://www.php.net">Php.net</a></li>
+        <li><a href="http://scholarly.vernacular.io">Scholarly</a></li>
+      </ul>
+      </section>
+      
+  </article>
+  </body>
+</html>
