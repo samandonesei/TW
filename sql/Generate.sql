@@ -7,6 +7,7 @@ Drop table Tipologie CASCADE CONSTRAINTS PURGE;
 Drop table Incadrare CASCADE CONSTRAINTS PURGE;
 Drop table Admin;
 
+
 Create Table Artefact (ID number(10),Nume varchar2(255) NOT NULL,ID_Arheolog number(10),ID_Locatie number(10),ID_Detinator number(10));
 Create Table Arheolog (ID number(10),Nume varchar2(255) NOT NULL ,ID_Locatie number(10),Specializare varchar2(255));
 Create Table Detinator (ID number(10),Nume varchar2(255) NOT NULL ,Tip varchar2(255) NOT NULL);
@@ -14,8 +15,20 @@ Create Table Locatie (ID number(10),Nume_Sit varchar2(255) NOT NULL,Continent va
 Create Table Caracteristici (ID_Artefact number(10) UNIQUE NOT NULL,Culoare varchar2(255),Material varchar2(255),Perioada varchar2(255),Data_Descoperire date NOT NULL,Rol varchar2(255),Valoare_est varchar2(10));
 Create Table Tipologie (ID number(10),Nume varchar2(255) NOT NULL,Origine varchar2(255), Perioada varchar2(255));
 Create Table Incadrare (ID_Artefact number(10) NOT NULL, ID_Tipologie number(10) NOT NULL);
-Create table Admin(Nume varchar2(256),Password varchar2(256));
-Insert into Admin values('Leon','Daniel');
+Create table Admin(Nume varchar2(256),Password varchar2(256),email varchar2(256));
+Insert into Admin values('Leon','Daniel','leon.Daniel@gmail.com');
+
+drop index detinator;
+drop index locatie;
+drop index muzeu_nume;
+drop index cautare;
+drop index index_arheolog;
+
+create index detinator on artefact(id_detinator);
+create index locatie on artefact(id_locatie);
+create index muzeu_nume on detinator (tip,id,nume);
+create index cautare on locatie(tara,oras,nume_sit);
+create index index_arheolog on artefact (id_arheolog);
 
 ALTER TABLE Artefact ADD CONSTRAINT 
      pk_Artefact PRIMARY KEY (ID);	 
@@ -181,9 +194,9 @@ ids_match(1014):='Decebal';
 
 
 
-FOR i in 1..10000 LOOP
+FOR i in 1..1000 LOOP
     
-    continent := dbms_random.value(1,5);
+    continent := dbms_random.value(1,6);
     tara :=10* continent + dbms_random.value(1,2);
     oras :=10* tara +dbms_random.value(1,3);
     sit :=dbms_random.value(1,8);
@@ -223,7 +236,7 @@ FOR i in 1..10000 LOOP
     else
       nume:=INITCAP(SUBSTR(ids_match(valNume2),1,INSTR(ids_match(valNume2),' '))) || INITCAP(SUBSTR(ids_match(valNume),INSTR(ids_match(valNume),' ')+1));  
     end if;
-    INSERT INTO Arheolog Values(i,nume,dbms_random.value(1,10000),ids_match(dbms_random.value(11,20)));
+    INSERT INTO Arheolog Values(i,nume,dbms_random.value(1,1000),ids_match(dbms_random.value(11,20)));
 
 END LOOP;
 
@@ -254,18 +267,8 @@ FOR i in 1..500 LOOP
     valNume := dbms_random.value(1,10);
     valNume2 := dbms_random.value(1,10);
     randoms :=dbms_random.value(1,2);
-    if randoms=1 then
-      nume:=INITCAP(SUBSTR(ids_match(valNume),INSTR(ids_match(valNume),' ')+1)|| ' ' || INITCAP(SUBSTR(ids_match(valNume2),1,INSTR(ids_match(valNume2),' '))));  
-    else
       nume:=INITCAP(SUBSTR(ids_match(valNume2),1,INSTR(ids_match(valNume2),' '))) || INITCAP(SUBSTR(ids_match(valNume),INSTR(ids_match(valNume),' ')+1));  
-    end if;
-  
-    randoms :=dbms_random.value(1,3);
-    if randoms = 1 then
-    INSERT INTO Detinator Values(i,nume,'Colectionar');
-    else
     INSERT INTO Detinator Values(i,'Muzeul de ' || ids_match(dbms_random.value(11,20)),'Muzeu');
-    end if;
 END LOOP;
 
   ids_match.EXTEND(1000);
@@ -349,7 +352,7 @@ ids_match(13):='Iisus
 ';ids_match(74):='Richard Wagner
 ';ids_match(75):='Pyotr Ilyich Tchaikovsky
 ';ids_match(76):='Voltaire
-';ids_match(77):='SfΓntul Petre
+';ids_match(77):='Sf?ntul Petre
 ';ids_match(78):='Andrew Jackson
 ';ids_match(79):='Constantine the Great
 ';ids_match(80):='Socrates
@@ -393,10 +396,11 @@ FOR i in 1..20000 LOOP
     ids_match(dbms_random.value(1,12)) || ' lui ' || ids_match(dbms_random.value(13,112)),
     
     dbms_random.value(1,10000),
-    dbms_random.value(1,10000),
+    dbms_random.value(1,1000),
     dbms_random.value(1,500));
   
 END LOOP;
+
 
 ids_match(1):='Verde';
 ids_match(2):='Rosu';
@@ -433,7 +437,7 @@ FOR i in 1..20000 LOOP
     elsif randoms=3 then nume:='B'; END IF;  
       
     specializare:=to_char((dbms_random.value(1,100)),'99') || nume;
-
+    
     
    INSERT INTO Caracteristici Values(i,
    ids_match(dbms_random.value(1,5)),
@@ -484,12 +488,541 @@ END LOOP;
   END LOOP;
 
 END;
+/
+CREATE OR REPLACE Package AdministratorLogin
+as
+FUNCTION Login(username admin.nume%type,inputPassword admin.password%type)
+return number;
+END AdministratorLogin;
+/
+CREATE OR REPLACE Package Body AdministratorLogin as
+FUNCTION Login(username admin.nume%type,inputPassword admin.password%type)
+return number
+IS
+entries integer:=0;
+BEGIN
+  select count(*) into entries from admin where nume like username and password like inputPassword;
+  entries:=1;
+  if entries != 1 then
+    return 0;
+  end if;
+  return 1;
+END;
+end AdministratorLogin;
+/
+
+CREATE OR REPLACE FUNCTION GET_COLUMNS_NAME(p_selectQuery IN VARCHAR2) RETURN cols_name PIPELINED IS
+    v_cursor_id integer;
+    v_col_cnt integer;
+    v_columns dbms_sql.desc_tab;
+begin
+    v_cursor_id := dbms_sql.open_cursor;
+    dbms_sql.parse(v_cursor_id, p_selectQuery, dbms_sql.native);
+    dbms_sql.describe_columns(v_cursor_id, v_col_cnt, v_columns);
+
+    for i in 1 .. v_columns.count loop
+        pipe row(v_columns(i).col_name);
+    end loop;
+
+    dbms_sql.close_cursor(v_cursor_id);
+    return;
+exception when others then
+    dbms_sql.close_cursor(v_cursor_id);
+    raise;
+end;
+/
+CREATE OR REPLACE PROCEDURE getArtefactsPer(output out sys_refcursor) AS
+loc varchar2(256);
+BEGIN
+
+loc :='oras';
+if (loc like 'oras') then
+open output for
+select l.ORAS,t.nume,count(*) from locatie l
+join artefact a on l.id =a.id_locatie
+join incadrare i on i.id_artefact=a.id
+join tipologie t on t.id=i.id_tipologie
+group by l.oras ,t.nume order by l.oras,count(*); 
+end if;
+
+if (loc like 'tara') then
+open output for
+select l.tara,t.nume,count(*) from locatie l
+join artefact a on l.id =a.id_locatie
+join incadrare i on i.id_artefact=a.id
+join tipologie t on t.id=i.id_tipologie
+group by l.tara ,t.nume order by l.tara,count(*);
+end if;
+
+if (loc like 'continent') then
+open output for
+select l.continent,t.nume,count(*) from locatie l
+join artefact a on l.id =a.id_locatie
+join incadrare i on i.id_artefact=a.id
+join tipologie t on t.id=i.id_tipologie
+group by l.continent ,t.nume order by l.continent,count(*);
+end if;
+
+EXCEPTION
+WHEN no_data_found THEN
+  open output for select 'no data found' from  dual;
+when OTHERS then
+  open output for select 'unhadeled exception' from  dual;
+END getArtefactsPer;
+/
+create or replace package distributie_arheologi is 
+  function grad_arheolog(p_id in arheolog.id%type) return varchar2;
+  function numar(p_string varchar2) return pls_integer;
+  procedure distribuire (p_curs out sys_refcursor);
+end distributie_arheologi;
+/
+create or replace package body distributie_arheologi is
+ function nr_descoperiri(p_id in arheolog.id%type) return pls_integer is
+  v_int pls_integer;
+  begin 
+    select count(*) into v_int from arheolog a join artefact l on a.id=l.id_arheolog where a.id=p_id;
+    return v_int;
+  end nr_descoperiri;
+
+ function grad_arheolog(p_id in arheolog.id%type) return varchar2 is
+  v_string varchar2(255);
+  v_int pls_integer;
+  begin
+    v_int:=nr_descoperiri(p_id);
+    if v_int=0 then v_string:='Begginers';
+    elsif v_int =1 or v_int=2 then v_string:='Novices';
+    elsif v_int=3 or v_int=4 then v_string:='Professionals';
+    else v_string:='Experts';
+    end if;
+    return v_string;
+  end grad_arheolog;
+
+ function numar (p_string varchar2) return pls_integer is
+    v_int pls_integer;
+  begin
+    select count(*) into v_int from arheolog where grad_arheolog(id)=p_string;
+    return v_int;
+  end numar;
+
+ procedure distribuire(p_curs out sys_refcursor) is
+    v_total pls_integer;
+    empty_table EXCEPTION;
+    pragma exception_init(empty_table,-20001);
+  begin
+    select count(*) into v_total from arheolog;
+    if v_total=0 then
+      raise empty_table;
+    else
+    open p_curs for 
+      select grad_arheolog(id),numar(grad_arheolog(id)),trunc((numar(grad_arheolog(id))*100)/v_total,2)||'%' from arheolog group by grad_arheolog(id);
+    end if;
+  exception
+    when empty_table then
+      open p_curs for
+        select 'Va rugam contactati un admin,una dintre tabele a fost golita!' from dual;
+  end distribuire;
+end distributie_arheologi;
+/
+create or replace package best_furnizor is
+  function max_muzeu(p_id in detinator.id%type) return pls_integer;
+  procedure tara_per_muzeu(p_cursor out sys_refcursor);
+end best_furnizor;
+/
+create or replace package body best_furnizor is
+  function max_muzeu(p_id in detinator.id%type)return pls_integer is
+  v_total pls_integer;
+  begin
+    select max(total) into v_total from
+     (select count(a.id) total from detinator m
+      join artefact a on a.ID_DETINATOR=m.ID 
+      join LOCATIE l on l.ID=a.ID_LOCATIE
+      where m.tip='Muzeu' and m.id=p_id
+      group by m.id,l.tara,l.oras);
+      return v_total;
+  end;
+  procedure tara_per_muzeu(p_cursor out sys_refcursor) is
+    v_total_muz pls_integer;
+    v_total pls_integer;
+    no_muzeu EXCEPTION;
+    pragma exception_init(no_muzeu,-20003);
+    empty_table EXCEPTION;
+    pragma exception_init(empty_table,-20002);
+  begin
+    select count(*) into v_total_muz from detinator where tip='Muzeu';
+    select count(*) into v_total from detinator;
+    if v_total=0 then raise empty_table;
+    elsif v_total_muz=0 then raise no_muzeu;
+    else
+    open p_cursor for 
+      select m.nume,l.tara,l.oras from detinator m
+        join artefact a on a.ID_DETINATOR=m.ID 
+        join LOCATIE l on l.ID=a.ID_LOCATIE
+        where m.tip='Muzeu' 
+        group by m.id,m.nume,l.tara,l.oras
+        having count(a.id)=max_muzeu(m.id);
+      end if;
+  exception
+    when empty_table then
+     open p_cursor for select 'Baza de date a fost compromisa,va rugam contactati un administrator' from dual;
+    when no_muzeu then
+      open p_cursor for select 'Nu exista informatii legate de vreun muzeu in momentul actual!' from dual;
+  end;
+end best_furnizor;
+/
+create or replace package origine_tipologie is
+  function max_tipologie(p_id in tipologie.id%type) return pls_integer;
+  procedure tara_per_tipologie(p_cursor out sys_refcursor);
+end origine_tipologie;
+/
+create or replace package body origine_tipologie is
+  function max_tipologie(p_id in tipologie.id%type) return pls_integer is
+  v_total pls_integer;
+  begin
+    select max(total) into v_total from
+     (select count(a.id) total from tipologie t
+      join incadrare i on i.id_tipologie=t.ID 
+      join artefact a on a.id=i.id_artefact
+      join LOCATIE l on l.ID=a.ID_LOCATIE
+      where t.id=p_id
+      group by t.id,l.tara);
+      return v_total;
+  end;
+  procedure tara_per_tipologie(p_cursor out sys_refcursor) is
+    v_total pls_integer;
+    empty_table2 EXCEPTION;
+    pragma exception_init(empty_table2,-20004);
+  begin
+    select count(*) into v_total from tipologie;
+    if v_total=0 then raise empty_table2;
+    else
+    open p_cursor for 
+      select t.nume,l.tara,count(a.id) from tipologie t
+      join incadrare i on i.id_tipologie=t.ID 
+      join artefact a on a.id=i.id_artefact
+      join LOCATIE l on l.ID=a.ID_LOCATIE
+      group by t.id,t.nume,l.tara
+        having count(a.id)=max_tipologie(t.id);
+      end if;
+  exception
+    when empty_table2 then
+     open p_cursor for select 'Baza de date a fost compromisa,va rugam contactati un administrator' from dual;
+  end;
+end origine_tipologie;
+/
+CREATE OR REPLACE PROCEDURE locatie1 (emp_cursor OUT SYS_REFCURSOR)
+AS
+v_id_locatie integer;
+v_nr_locatii integer;
+locatie_inexistenta EXCEPTION;
+  PRAGMA EXCEPTION_INIT(locatie_inexistenta, -20001);
+CURSOR locatii( idDetinator integer) IS (select id_locatie,  COUNT(id_locatie) from Artefact where idDetinator = id_detinator GROUP BY id_locatie);
+
+BEGIN
+v_nr_locatii := 0;
+FOR i in (select id, nume, tip from DETINATOR)
+LOOP
+  OPEN locatii(i.id);
+  LOOP
+    FETCH locatii into v_id_locatie, v_nr_locatii;
+    EXIT WHEN locatii%NOTFOUND;
+  END LOOP;
+    IF (v_nr_locatii = 0) THEN RAISE locatie_inexistenta;
+    END IF;
+  CLOSE locatii;
+END LOOP;
+OPEN emp_cursor FOR
+SELECT d.nume || ' are locatie favorita: ' || l.oras || ' - ' || l.nume_sit  FROM detinator d JOIN artefact a ON d.id = a.id_detinator
+          JOIN locatie l ON l.id = a.id_locatie GROUP BY l.id,l.nume_sit, l.oras, d.nume
+         HAVING COUNT(l.id) = (SELECT MAX(COUNT(id_locatie)) FROM artefact WHERE id_locatie = l.id GROUP BY id_locatie);
+
+EXCEPTION
+    WHEN locatie_inexistenta THEN
+     OPEN emp_cursor FOR SELECT 'S-a gasit un artefact fara locatie' FROM dual;
+    WHEN NO_DATA_FOUND THEN
+      open emp_cursor for select 'No data found in DB' from dual;
+
+END locatie1;
+/
+CREATE OR REPLACE FUNCTION tip_artefact( idArtefact integer)
+return varchar
+AS
+tip varchar(20);
+
+BEGIN
+
+SELECT CASE
+WHEN EXISTS (SELECT a.id
+                  FROM tipologie t JOIN incadrare inc ON inc.id_tipologie = t.id
+                  JOIN artefact a ON a.id = inc.id_artefact
+                  WHERE idArtefact = id_artefact
+                  GROUP BY a.id
+                  HAVING count(inc.id_artefact) > 1
+                  )
+THEN 'Generic'
+
+WHEN EXISTS (SELECT a.id
+                  FROM tipologie t JOIN incadrare inc ON inc.id_tipologie = t.id
+                  JOIN artefact a ON a.id = inc.id_artefact
+                  WHERE idArtefact = id_artefact
+                  GROUP BY a.id
+                  HAVING count(inc.id_artefact) = 1
+                  )
+THEN 'Regular'
+
+ELSE
+    'Unic'
+END 
+INTO tip
+FROM DUAL;
+
+return tip;
+END tip_artefact;
+/
+
+CREATE OR REPLACE PROCEDURE distr_artefacte (emp_cursor OUT SYS_REFCURSOR)
+AS
+v_nr_artefacte integer;
+v_nr_tipologii integer;
+v_id_artefact integer;
+v_generic integer;
+v_nume_artefact artefact.nume%type;
+CURSOR tipologii( idTipologie integer) IS (select id_artefact from Incadrare 
+                                              where idTipologie = id_tipologie);
+
+BEGIN
+
+OPEN emp_cursor FOR
+SELECT 'Fara tipologie ' || a.nume || ' tip artefact: Unic'
+             FROM  artefact a WHERE tip_artefact(a.id) = 'Unic'
+UNION
+SELECT t.nume || ' - artefact: ' || a.nume || ' tip artefact: ' || tip_artefact(a.id)
+            FROM tipologie t JOIN incadrare inc ON inc.id_tipologie = t.id
+            JOIN artefact a ON a.id = inc.id_artefact
+            GROUP BY a.nume, a.id, t.nume, t.id;
+EXCEPTION
+  when NO_DATA_FOUND then
+    OPEN emp_cursor FOR
+      select 'no data found ' from dual;
+END distr_artefacte;
+/
+CREATE OR REPLACE Package artefact_administration
+as
+
+PROCEDURE addArtefact(nume artefact.nume%type
+,descoperitor arheolog.nume%type
+,loc locatie.nume_sit%type
+,culoare caracteristici.culoare%type 
+,material caracteristici.material%type
+,perioada caracteristici.perioada%type
+,data_desc caracteristici.data_descoperire%type
+,rol caracteristici.rol%type
+,valoare caracteristici.valoare_est%type
+,detinut detinator.nume%type
+,tipo tipologie.nume%type);
+
+PROCEDURE deleteArtefact(numeInput artefact.nume%type);
+
+PROCEDURE updateArtefact(numeInput artefact.nume%type
+,descoperitor arheolog.nume%type
+,loc locatie.nume_sit%type
+,culoareInput caracteristici.culoare%type 
+,materialInput caracteristici.material%type
+,perioadaInput caracteristici.perioada%type
+,data_desc caracteristici.data_descoperire%type
+,rolInput caracteristici.rol%type
+,valoare caracteristici.valoare_est%type
+,detinut detinator.nume%type
+,tipo tipologie.nume%type);
+end artefact_administration;
+/
+CREATE OR REPLACE Package Body artefact_administration as
+PROCEDURE addArtefact(nume artefact.nume%type
+,descoperitor arheolog.nume%type
+,loc locatie.nume_sit%type
+,culoare caracteristici.culoare%type 
+,material caracteristici.material%type
+,perioada caracteristici.perioada%type
+,data_desc caracteristici.data_descoperire%type
+,rol caracteristici.rol%type
+,valoare caracteristici.valoare_est%type
+,detinut detinator.nume%type
+,tipo tipologie.nume%type)
+IS
+v_id integer;
+v_id_arh integer;
+v_id_loc integer;
+v_id_detinut integer;
+v_id_tip integer;
+BEGIN
+  select id into v_id_arh from arheolog where nume like descoperitor and rownum<=1;
+  select count(*) into v_id from artefact;
+  select id into v_id_loc from locatie where nume_sit like loc  and rownum<=1;
+  v_id:=v_id+1;
+  select id into v_id_detinut from detinator where nume like detinut and rownum<=1;
+  select id into v_id_tip from tipologie where nume like tipo;
+  insert into artefact values(v_id,nume,v_id_arh,v_id_loc,v_id_detinut);
+  insert into caracteristici values(v_id,culoare,material,perioada,data_desc,rol ,valoare);
+  insert into incadrare values(v_id,v_id_tip);
+     exception
+     when NO_DATA_FOUND then
+       raise_application_error (-20001,'Unul din campurile introduse (locatie,detinator,arheolog,tipologie) nu se afla in baza de date');
+    when OTHERS then
+        raise_application_error (-20002,'Campurile introduse sunt corecte,alta eroare neasteptata a aparut');
+END;
+
+PROCEDURE deleteArtefact(numeInput artefact.nume%type) is 
+v_id integer;
+BEGIN
+select id into v_id from artefact where nume like numeInput and rownum<=1;
+delete from caracteristici where id_artefact = v_id;
+delete from incadrare where id_artefact = v_id;
+delete from artefact where id = v_id;
+     exception
+     when NO_DATA_FOUND then
+       raise_application_error (-20003,'Artefactul nu a fost gasit in baza de date');
+END;
+
+PROCEDURE updateArtefact(numeInput artefact.nume%type
+,descoperitor arheolog.nume%type
+,loc locatie.nume_sit%type
+,culoareInput caracteristici.culoare%type 
+,materialInput caracteristici.material%type
+,perioadaInput caracteristici.perioada%type
+,data_desc caracteristici.data_descoperire%type
+,rolInput caracteristici.rol%type
+,valoare caracteristici.valoare_est%type
+,detinut detinator.nume%type
+,tipo tipologie.nume%type)
+is
+v_id integer;
+BEGIN
+if(descoperitor is not null) then
+select id into v_id from arheolog where nume like descoperitor and rownum<=1;
+UPDATE artefact
+SET id_arheolog=v_id
+WHERE nume like numeInput; 
+end if;
+
+if(loc is not null) then
+select id into v_id from locatie where nume_sit like loc and rownum<=1;
+UPDATE artefact
+SET id_locatie=v_id
+WHERE nume like numeInput; 
+end if;
+
+if(culoareInput is not null) then
+
+UPDATE caracteristici
+SET culoare=culoareInput
+WHERE id_artefact = (select id from artefact where nume like numeInput and rownum <=1) ;
+end if;
+
+if(materialInput is not null) then
+
+UPDATE caracteristici
+SET material=materialInput
+WHERE id_artefact = (select id from artefact where nume like numeInput and rownum <=1) ;
+end if;
+
+if(perioadaInput is not null) then
+
+UPDATE caracteristici
+SET perioada=perioadaInput
+WHERE id_artefact = (select id from artefact where nume like numeInput and rownum <=1) ;
+end if;
+
+--questionable
+if(data_desc is not null) then
+
+UPDATE caracteristici
+SET data_descoperire=data_desc
+WHERE id_artefact = (select id from artefact where nume like numeInput and rownum <=1) ;
+end if;
+
+if(rolInput is not null) then
+
+UPDATE caracteristici
+SET rol=rolInput
+WHERE id_artefact = (select id from artefact where nume like numeInput and rownum <=1) ;
+end if;
+
+if(valoare is not null) then
+
+UPDATE caracteristici
+SET valoare_est=valoare
+WHERE id_artefact = (select id from artefact where nume like numeInput and rownum <=1) ;
+end if;
+
+if(loc is not null) then
+select id into v_id from detinator where nume like detinut and rownum<=1;
+UPDATE artefact
+SET id_detinator=v_id
+WHERE nume like numeInput;
+end if;
+
+if(loc is not null) then
+select id into v_id from detinator where nume like detinut and rownum<=1;
+UPDATE artefact
+SET id_detinator=v_id
+WHERE nume like numeInput;
+end if;
+
+if(loc is not null) then
+select id into v_id from tipologie where nume like tipo and rownum<=1;
+UPDATE incadrare
+SET id_tipologie=v_id
+WHERE id_artefact = (select id from artefact where nume like numeInput and rownum <=1) ;
+end if;
+     exception
+     when NO_DATA_FOUND then
+       raise_application_error (-20004,'Artefactul,arheologul,locatia,detinatorul sau tipologia nu au fost gasite in baza de date.');
+END;
+end artefact_administration;
+/
+CREATE OR REPLACE Package Administrator
+as
+FUNCTION Login(username admin.nume%type,inputPassword admin.password%type)
+return number;
+PROCEDURE register_user(username admin.nume%type,inputPassword admin.password%type,email admin.email%type);
+PROCEDURE remove_user(username admin.nume%type,inputPassword admin.password%type); 
+END Administrator;
+/
+CREATE OR REPLACE Package Body Administrator as
+FUNCTION Login(username admin.nume%type,inputPassword admin.password%type)
+return number
+IS
+entries integer;
+BEGIN
+  Select count(*) into entries from Admin where nume like username and password like inputPassword;
+  if entries != 1 then
+    return 0;
+  end if;
+  return 1;
+END;
+
+PROCEDURE register_user(username admin.nume%type,inputPassword admin.password%type,email admin.email%type)
+IS
+BEGIN
+  Insert into Admin values (username,inputPassword,email);
+END;
+
+PROCEDURE remove_user(username admin.nume%type,inputPassword admin.password%type)
+is
+BEGIN
+delete from admin where nume like username and password like inputPassword;
+     exception
+     when NO_DATA_FOUND then
+       raise_application_error (-20004,'Contul nu u fost gasit in baza de date.');
+END;
+end Administrator;
 /*
+Select administrator.login('Leon','Daniel') from dual;
+Select * from Admin where nume like 'Leon' and password like 'Daniel';
 Select * from Artefact;
 Select * from Arheolog;
 Select * from Locatie;
 Select * from Tipologie;
 Select * from Incadrare;
 Select * from Detinator;
-Select * from Caracteristici;
+Select * from Caracteristici where valoare_est like '%#%';
 */  
