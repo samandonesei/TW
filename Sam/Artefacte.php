@@ -51,11 +51,11 @@
                 exit();
             }
             if(isset($_GET['search'])){
-                $where=' where lower(nume) like lower(\'%'.$_GET['search'].'%\')';
+                $where='%'.$_GET['search'].'%';
                 $input="<input type=\"hidden\" name=\"search\" value=\"".$_GET['search']."\"/>";
             }
             else{
-                $where=' where 1=1';
+                $where='%';
                 $input="";
             }
             if(isset($_GET['Sort'])){
@@ -102,9 +102,17 @@
             }
             $intermediar=$MIN-1;
             $contor=1;
-            $instruction=oci_parse($conn,"select * from ( select /*+ FIRST_ROWS(n) */ a.*, ROWNUM rnum from ( SELECT * FROM ARTEFACT ".$join.$where.$order." ) a where ROWNUM <=".$MAX.") where rnum  > ".$MIN);
+            $sql="select * from ( select /*+ FIRST_ROWS(n) */ a.*, ROWNUM rnum from ( SELECT * FROM ARTEFACT ".$join." 
+            where nume like :sam ".$order." ) a where ROWNUM <=".$MAX.") where rnum  > ".$MIN;
+            $instruction=oci_parse($conn,$sql);
+            $whr=$where;
+            oci_bind_by_name($instruction, ":sam", $whr);
             oci_execute($instruction);
-            $numar=oci_parse($conn,"select count(*) from ( select /*+ FIRST_ROWS(n) */ a.*, ROWNUM rnum from ( SELECT * FROM ARTEFACT ".$join.$where.$order." ) a where ROWNUM <=".$MAX.") where rnum  > ".$MIN);
+            //oci_fetch_all($instruction, $res);
+    //oci_execute($instruction);
+       
+            $numar=oci_parse($conn,"select count(*) from ( select /*+ FIRST_ROWS(n) */ a.*, ROWNUM rnum from ( SELECT * FROM ARTEFACT ".$join."where nume like :sam ".$order." ) a where ROWNUM <=".$MAX.") where rnum  > ".$MIN);
+            oci_bind_by_name($numar,":sam",$whr);
             oci_execute($numar);
             
             $linie=oci_fetch_array($numar);
@@ -136,7 +144,12 @@
           <?php
             echo "<div id=MoveButtons>";
             $conn = oci_connect('TW', 'TW', 'localhost/XE');
-            $number=getQuery($conn,"Select count(*) from artefact".$join.$where.$order);
+                   
+            $numar=oci_parse($conn,"select count(*) FROM ARTEFACT ".$join. " where nume like :sam ".$order);
+            oci_bind_by_name($numar,":sam",$whr);
+            oci_execute($numar);
+            $number=oci_fetch_array($numar)[0];
+            
             $intermediar=$MIN-1;
             $pagini=intval($number/10);
             $intermediar2=$MAX;
